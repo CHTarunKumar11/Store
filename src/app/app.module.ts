@@ -14,6 +14,9 @@ import { FormsComponent } from './forms/forms.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPipe } from './search.pipe';
+import { RemaindersComponent } from './remainders/remainders.component';
+import { MomentModule } from 'ngx-moment';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { SearchPipe } from './search.pipe';
     DashboardComponent,
     ForgotpwdComponent,
     FormsComponent,
-    SearchPipe
+    SearchPipe,
+    RemaindersComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,12 @@ import { SearchPipe } from './search.pipe';
         positionClass : "toast-top-center",
         preventDuplicates : true
       }
-    )
+    ),
+    MomentModule.forRoot({
+      relativeTimeThresholdOptions: {
+        'm': 59
+      }
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

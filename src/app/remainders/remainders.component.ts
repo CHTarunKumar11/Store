@@ -4,14 +4,14 @@ import { faTrash,faPencilAlt,faStopwatch,faSave,faTimes,faPlusCircle,faStickyNot
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-remainders',
+  templateUrl: './remainders.component.html',
+  styleUrls: ['./remainders.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class RemaindersComponent implements OnInit {
 
+  
   faTrash = faTrash;
   faPencilAlt = faPencilAlt;
   faStopwatch = faStopwatch;
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
 
   getActivities()
   {
-    this.as.getActivities(this.username).subscribe(
+    this.as.getRemainders(this.username).subscribe(
       res=>{
         if(res["message"]=="success")
         {
@@ -187,7 +187,5 @@ export class DashboardComponent implements OnInit {
   {
     this.toastr.warning(message,heading);
   }
-
-  
 
 }

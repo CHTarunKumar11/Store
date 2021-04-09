@@ -25,5 +25,9 @@ export class ActivityService {
   {
     return this.hc.delete("/activity/deleteactivity/"+id);
   }
+  getRemainders(username):Observable<any>
+  {
+    return this.hc.get("/activity/getremainders/"+username);
+  }
 
 }

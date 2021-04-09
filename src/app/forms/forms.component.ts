@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faUserTie,faPencilAlt,faUserPlus,faLock,faTimes,faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserTie,faUserPlus,faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-forms',

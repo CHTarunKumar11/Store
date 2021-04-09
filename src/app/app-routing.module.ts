@@ -5,6 +5,7 @@ import { ForgotpwdComponent } from './forgotpwd/forgotpwd.component';
 import { FormsComponent } from './forms/forms.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { RemaindersComponent } from './remainders/remainders.component';
 import { RouteGuard } from './route.guard';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     {path:"forgotpwd",component:ForgotpwdComponent},
   ]},
   {path:"dashboard",component:DashboardComponent,canActivate:[RouteGuard]},
+  {path:"remainders",component:RemaindersComponent,canActivate:[RouteGuard]},
 
 ];
 

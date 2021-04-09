@@ -15,7 +15,8 @@ activityApiObj.post("/addactivity",verifyToken,asynchandler(async(req,res,next)=
         username : activityObj.username,
         id : activityObj.id,
         title : activityObj.title,
-        activity : activityObj.activity
+        activity : activityObj.activity,
+        time : activityObj.time
     })
 
     await newActivity.save();
@@ -37,8 +38,15 @@ activityApiObj.delete("/deleteactivity/:id",verifyToken,asynchandler(async(req,r
 
 activityApiObj.post("/updateactivity",verifyToken,asynchandler(async(req,res,next)=>{
     activityObj = req.body;
-    await Activity.updateOne({id:activityObj.id},{title:activityObj.title,activity:activityObj.activity});
+    await Activity.updateOne({id:activityObj.id},{title:activityObj.title,activity:activityObj.activity,time:activityObj.time});
     res.send({message:"activity updated successfully"});
+}))
+
+activityApiObj.get("/getremainders/:username",verifyToken,asynchandler(async(req,res,next)=>{
+    let username =  req.params.username;
+    let activities = await Activity.find({$and : [{username:username},{time : {$ne : ""}}]});
+    res.send({message:"success",activities:activities});
+
 }))
 
 module.exports = activityApiObj;
