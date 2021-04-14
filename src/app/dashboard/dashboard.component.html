@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <a class="pinicon" (click)="pinActivity(activity)"><fa-icon [icon]="faThumbtack"></fa-icon></a>
                         <h5 class="m-2">{{activity.title}}</h5>
-                        <p class="m-2">{{activity.activity}}</p>
+                        <h5 class="m-2">{{activity.activity}}</h5>
                         <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span><fa-icon [icon]="faTimes" class="point" style="margin:0px 8px;" (click)="deleteReminder(activity)"></fa-icon></div>
                     </div>
                     <div class="card-footer">
@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <a class="pinicon" (click)="pinActivity(activity)"><fa-icon [icon]="faThumbtack"></fa-icon></a>
                     <h5 class="m-2">{{activity.title}}</h5>
-                    <p class="m-2">{{activity.activity}}</p>
+                    <h5 class="m-2">{{activity.activity}}</h5>
                     <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span><fa-icon [icon]="faTimes" class="point" style="margin:0px 8px;" (click)="deleteReminder(activity)"></fa-icon></div>
                 </div>
                 <div class="card-footer">
