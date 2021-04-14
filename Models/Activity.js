@@ -2,10 +2,11 @@ const mongoose = require("mongoose");
 
 const ActivitySchema = new mongoose.Schema({
     username : String,
-    id : String,
+    userid : String,
     title : String,
     activity : String,
-    time : String
+    time : String,
+    pin : Boolean
 });
 
 const Activity = mongoose.model("activity",ActivitySchema);

@@ -66,6 +66,7 @@
 .dropdown-item
 {
     margin: auto;
+    margin-left: 5px;
     width: 120px;
 }
 

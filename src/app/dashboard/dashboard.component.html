@@ -31,13 +31,41 @@
         </div>
     </div>
 
+
+    <div *ngIf="pinnedLength != 0">
+        <p class="sh"><fa-icon [icon]="faThumbtack" style="margin-right: 8px;"></fa-icon>Pinned</p>
+        <div class="row displaycards">
+            <div class="col-md-6 col-lg-4 mt-3" *ngFor="let activity of pinnedActivities | search : searchTerm">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <a class="pinicon" (click)="pinActivity(activity)"><fa-icon [icon]="faThumbtack"></fa-icon></a>
+                        <h5 class="m-2">{{activity.title}}</h5>
+                        <p class="m-2">{{activity.activity}}</p>
+                        <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span><fa-icon [icon]="faTimes" class="point" style="margin:0px 8px;" (click)="deleteReminder(activity)"></fa-icon></div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="space">
+                            <a  (click)="gotoModal(activity)" data-bs-toggle="modal" data-bs-target="#remindModal"><fa-icon [icon]="faStopwatch"></fa-icon></a>
+                            <a  (click)="gotoModal(activity)" data-bs-toggle="modal" data-bs-target="#Modal"><fa-icon [icon]="faPencilAlt"></fa-icon></a>
+                            <a  (click)="delete(activity.id)"><fa-icon [icon]="faTrash"></fa-icon></a>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        <p class="sh mt-4"  *ngIf="activityLength != 0"><fa-icon [icon]="faLeaf" style="margin-right: 8px;"></fa-icon>Others</p>
+    </div>
+    
+    
+
     <div class="row displaycards">
-        <div class="col-md-6 col-lg-4 mt-3" *ngFor="let activity of activities | search : searchTerm">
+        <div class="col-md-6 col-lg-4 mt-3 mb-5" *ngFor="let activity of activities | search : searchTerm">
             <div class="card h-100">
                 <div class="card-body">
+                    <a class="pinicon" (click)="pinActivity(activity)"><fa-icon [icon]="faThumbtack"></fa-icon></a>
                     <h5 class="m-2">{{activity.title}}</h5>
                     <p class="m-2">{{activity.activity}}</p>
-                    <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span></div>
+                    <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span><fa-icon [icon]="faTimes" class="point" style="margin:0px 8px;" (click)="deleteReminder(activity)"></fa-icon></div>
                 </div>
                 <div class="card-footer">
                     <div class="space">

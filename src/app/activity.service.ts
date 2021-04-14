@@ -29,5 +29,8 @@ export class ActivityService {
   {
     return this.hc.get("/activity/getremainders/"+username);
   }
-
+  getPinnedActivities(username):Observable<any>
+  {
+    return this.hc.get("/activity/getpinnedactivities/"+username);
+  }
 }

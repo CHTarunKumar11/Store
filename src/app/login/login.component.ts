@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
           {
             localStorage.setItem("token",res["signedToken"]);
             localStorage.setItem("username",res["username"]);
+            localStorage.setItem("userid",res["userid"]);
             let username = localStorage.getItem("username");
             this.us.setUser(username);
             this.toastsuccess("Login Page","Login successfull");

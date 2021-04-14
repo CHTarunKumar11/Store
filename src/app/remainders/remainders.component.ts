@@ -28,8 +28,8 @@ export class RemaindersComponent implements OnInit {
   flag = false;
   date;
   username = localStorage.getItem("username");
-  editactivityObj = {"username":"","id":"","title":"","activity":"","time":""};
-  addactivityObj = {"username":"","id":"","title":"","activity":"","time":""};
+  editactivityObj = {"username":"","id":"","title":"","activity":"","time":"","pin":false};
+  addactivityObj = {"username":"","id":"","title":"","activity":"","time":"","pin":false};
 
   constructor(private as:ActivityService,private rt:Router,private toastr: ToastrService) { }
 
@@ -139,12 +139,31 @@ export class RemaindersComponent implements OnInit {
     )
   }
 
+  deleteReminder(activity)
+  {
+    activity.time = "";
+    this.as.updateActivity(activity).subscribe(
+      res=>{
+        if(res["message"] == ("Session expired. Please login again" || "Unauthorized access. Login to continue"))
+        {
+          this.toastwarning("Dashboard Page",res["message"]);
+          setTimeout(()=>this.gotologin(),2500);
+        }
+        else{
+          this.toastsuccess("Dashboard Page",res["message"]);
+          this.getActivities();
+        }
+      }
+    )
+  }
+
   gotoModal(activity)
   {
     this.editactivityObj.id = activity.id;
     this.editactivityObj.title = activity.title;
     this.editactivityObj.activity = activity.activity;
     this.editactivityObj.time = activity.time;
+    this.editactivityObj.pin = activity.pin;
   }
 
   gotologin()

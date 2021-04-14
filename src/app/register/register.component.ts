@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
     if(this.registerForm.valid)
     {
       let userObj = this.registerForm.value;
-      console.log(userObj);
+      userObj.userid =  Date.now().toString();
       
       this.us.registerUser(userObj).subscribe(
         res=>{

@@ -32,12 +32,12 @@
     </div>
 
     <div class="row displaycards">
-        <div class="col-md-6 col-lg-4 mt-3" *ngFor="let activity of activities | search : searchTerm">
+        <div class="col-md-6 col-lg-4 mt-3 mb-5" *ngFor="let activity of activities | search : searchTerm">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="m-2">{{activity.title}}</h5>
                     <p class="m-2">{{activity.activity}}</p>
-                    <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span></div>
+                    <div class="remindDisplay" *ngIf="activity.time"><fa-icon [icon]="faClock" style="margin-right: 8px;"></fa-icon><span>{{activity.time | amDateFormat:'llll'}}</span><fa-icon [icon]="faTimes" class="point" style="margin:0px 8px;" (click)="deleteReminder(activity)"></fa-icon></div>
                 </div>
                 <div class="card-footer">
                     <div class="space">

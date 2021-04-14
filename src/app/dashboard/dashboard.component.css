@@ -40,6 +40,7 @@
     padding: 8px;
 }
 
+
 .show1{
     display: flex;
     justify-content: space-evenly;
@@ -226,9 +227,33 @@ input{
     border-radius: 50px;
     padding: 5px;
     margin-top: 10px;
+    background-color: rgba(179, 172, 172, 0.212);
 }
 
 a
 {
     cursor: pointer;
+}
+.point
+{
+    cursor: pointer;
+}
+
+.pinicon
+{
+    float: right;
+    display: none;
+    color: black;
+    margin:0 0 7px 5px;
+}
+
+.card:hover .pinicon
+{
+    display: block;
+}
+
+.sh
+{
+    color: white;
+    font-size: 22px;
 }

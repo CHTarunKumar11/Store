@@ -18,7 +18,7 @@ userApiObj.post("/loginuser",asynchandler(async(req,res,next)=>{
         if(status)
         {
             token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
-            res.send({message:"success",signedToken:token,username:user.username});
+            res.send({message:"success",signedToken:token,username:user.username,userid:user.userid});
         }
         else{
             res.send({message:"Invalid Password"});
@@ -48,9 +48,9 @@ userApiObj.post("/registeruser",asynchandler(async(req,res,next)=>{
             firstname : userObj.firstname,
             lastname : userObj.lastname,
             username : userObj.username,
-            password : hashedpwd
+            password : hashedpwd,
+            userid : userObj.userid,
         })
-
         await newUser.save();
         res.send({message:"success"});
     }

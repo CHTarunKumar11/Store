@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivityService } from '../activity.service';
-import { faTrash,faPencilAlt,faStopwatch,faSave,faTimes,faPlusCircle,faStickyNote,faSearch,faBell,faClock} from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faPencilAlt,faStopwatch,faSave,faTimes,faPlusCircle,faStickyNote,faSearch,faBell,faClock,faThumbtack,faLeaf} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,21 +22,28 @@ export class DashboardComponent implements OnInit {
   faSearch = faSearch;
   faBell = faBell;
   faClock = faClock;
+  faThumbtack = faThumbtack;
+  faLeaf = faLeaf;
 
+  pinnedActivities;
+  pinnedLength = 0;
+  activityLength = 0;
   searchTerm;
   activities;
   flag = false;
   date;
   username = localStorage.getItem("username");
-  editactivityObj = {"username":"","id":"","title":"","activity":"","time":""};
-  addactivityObj = {"username":"","id":"","title":"","activity":"","time":""};
+  editactivityObj = {"username":"","id":"","title":"","activity":"","time":"","pin":false};
+  addactivityObj = {"username":"","id":"","title":"","activity":"","time":"","pin":false};
 
   constructor(private as:ActivityService,private rt:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
     this.getActivities();
-
+    this.getPinnedActivities();
+    console.log(this.activities,this.pinnedActivities);
+    
   }
 
   transform()
@@ -70,7 +77,9 @@ export class DashboardComponent implements OnInit {
           this.addactivityObj.title = "";
           this.addactivityObj.activity = "";
           this.addactivityObj.time = "";
+          this.addactivityObj.pin = false;
           this.getActivities();
+          this.getPinnedActivities();
         }
       },
       err => {
@@ -81,6 +90,30 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  getPinnedActivities()
+  {
+    this.as.getPinnedActivities(this.username).subscribe(
+      res=>{
+        if(res["message"]=="success")
+        {
+          this.pinnedActivities = res["activities"];
+          this.pinnedLength = this.pinnedActivities.length;
+        }
+        else{
+          if(res["message"] == ("Session expired. Please login again" || "Unauthorized access. Login to continue"))
+          {
+            this.toastwarning("Dashboard Page",res["message"]);
+            setTimeout(()=>this.gotologin(),2500);
+          }
+          else{
+            this.toasterror("Dashboard Page",res["message"]);
+          }
+        }
+          
+      }
+    )
+  }
+
   getActivities()
   {
     this.as.getActivities(this.username).subscribe(
@@ -88,6 +121,7 @@ export class DashboardComponent implements OnInit {
         if(res["message"]=="success")
         {
           this.activities = res["activities"];
+          this.activityLength = this.activities.length
         }
         else{
           if(res["message"] == ("Session expired. Please login again" || "Unauthorized access. Login to continue"))
@@ -116,6 +150,7 @@ export class DashboardComponent implements OnInit {
         else{
           this.toastsuccess("Dashboard Page",res["message"]);
           this.getActivities();
+          this.getPinnedActivities();
         }
       }
     )
@@ -134,9 +169,21 @@ export class DashboardComponent implements OnInit {
         else{
           this.toastsuccess("Dashboard Page",res["message"]);
           this.getActivities();
+          this.getPinnedActivities();
         }
       }
     )
+  }
+
+  pinActivity(activity)
+  {
+    activity.pin = !activity.pin;
+    this.as.updateActivity(activity).subscribe(
+      res=>{
+          this.getActivities();
+          this.getPinnedActivities();
+      }
+    ) 
   }
 
   gotoModal(activity)
@@ -145,6 +192,7 @@ export class DashboardComponent implements OnInit {
     this.editactivityObj.title = activity.title;
     this.editactivityObj.activity = activity.activity;
     this.editactivityObj.time = activity.time;
+    this.editactivityObj.pin = activity.pin;
   }
 
   gotologin()
@@ -159,7 +207,7 @@ export class DashboardComponent implements OnInit {
 
   setReminder()
   {
-    if(this.flag == false)
+    if(!this.flag)
     {
       
       this.date = new Date(this.editactivityObj.time);
@@ -171,6 +219,25 @@ export class DashboardComponent implements OnInit {
       this.flag = false;
     }
     this.editactivityObj.time="";
+  }
+
+  deleteReminder(activity)
+  {
+    activity.time = "";
+    this.as.updateActivity(activity).subscribe(
+      res=>{
+        if(res["message"] == ("Session expired. Please login again" || "Unauthorized access. Login to continue"))
+        {
+          this.toastwarning("Dashboard Page",res["message"]);
+          setTimeout(()=>this.gotologin(),2500);
+        }
+        else{
+          this.toastsuccess("Dashboard Page",res["message"]);
+          this.getActivities();
+          this.getPinnedActivities();
+        }
+      }
+    )
   }
 
   toastsuccess(heading,message)

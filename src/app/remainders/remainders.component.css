@@ -226,6 +226,7 @@ input{
     border-radius: 50px;
     padding: 5px;
     margin-top: 10px;
+    background-color: rgba(179, 172, 172, 0.212);
 }
 
 a

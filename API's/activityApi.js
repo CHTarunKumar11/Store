@@ -13,10 +13,11 @@ activityApiObj.post("/addactivity",verifyToken,asynchandler(async(req,res,next)=
 
     newActivity = new Activity({
         username : activityObj.username,
-        id : activityObj.id,
+        userid : activityObj.id,
         title : activityObj.title,
         activity : activityObj.activity,
-        time : activityObj.time
+        time : activityObj.time,
+        pin : activityObj.pin
     })
 
     await newActivity.save();
@@ -25,7 +26,7 @@ activityApiObj.post("/addactivity",verifyToken,asynchandler(async(req,res,next)=
 
 activityApiObj.get("/getactivities/:username",verifyToken,asynchandler(async(req,res,next)=>{
     let username =  req.params.username;
-    let activities = await Activity.find({username:username});
+    let activities = await Activity.find({$and : [{username:username},{pin:false}]});
     res.send({message:"success",activities:activities});
 
 }))
@@ -38,7 +39,7 @@ activityApiObj.delete("/deleteactivity/:id",verifyToken,asynchandler(async(req,r
 
 activityApiObj.post("/updateactivity",verifyToken,asynchandler(async(req,res,next)=>{
     activityObj = req.body;
-    await Activity.updateOne({id:activityObj.id},{title:activityObj.title,activity:activityObj.activity,time:activityObj.time});
+    await Activity.updateOne({id:activityObj.id},{title:activityObj.title,activity:activityObj.activity,time:activityObj.time,pin:activityObj.pin});
     res.send({message:"activity updated successfully"});
 }))
 
@@ -48,5 +49,14 @@ activityApiObj.get("/getremainders/:username",verifyToken,asynchandler(async(req
     res.send({message:"success",activities:activities});
 
 }))
+
+activityApiObj.get("/getpinnedactivities/:username",verifyToken,asynchandler(async(req,res,next)=>{
+    let username =  req.params.username;
+    let activities = await Activity.find({$and : [{username:username},{pin:true}]});
+    res.send({message:"success",activities:activities});
+
+}))
+
+
 
 module.exports = activityApiObj;
