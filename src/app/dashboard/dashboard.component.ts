@@ -42,7 +42,6 @@ export class DashboardComponent implements OnInit {
 
     this.getActivities();
     this.getPinnedActivities();
-    console.log(this.activities,this.pinnedActivities);
     
   }
 
