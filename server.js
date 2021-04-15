@@ -7,6 +7,7 @@ app.use(exp.static(path.join(__dirname,"./dist/Store")));
 
 app.use(exp.json());
 
+require("dotenv").config();
 
 const userApiObj = require("./API's/userApi");
 const activityApiObj = require("./API's/activityApi");
@@ -15,7 +16,7 @@ app.use("/user",userApiObj);
 app.use("/activity",activityApiObj);
 
 
-const dburl = "mongodb+srv://project:project@cluster0.2o9tz.mongodb.net/Store?retryWrites=true&w=majority";
+const dburl = process.env.dburl;
 
 mongoose.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true});
 const db = mongoose.connection;
@@ -33,5 +34,5 @@ app.use((err,req,res,next)=>{
 })
 
 
-const port = 3000;
+const port = process.env.port;
 app.listen(port,()=>console.log(`Server started on port ${port}`))

@@ -83,15 +83,13 @@ input{
 
 .card
 {
-    font-family: 'RocknRoll One', sans-serif;;
-    background-color:#ec600f;
-    color: white;
+    font-family: 'RocknRoll One', sans-serif;
+    color: #ec600f;
 }
 
 .card-footer
 {
-    background-color: #ec600f;
-    color: white;
+    color: #ec600f;
     border: none;
 }
 
@@ -273,7 +271,3 @@ a
     color: #ec600f;
 }
 
-.modal-body
-{
-    
-}
