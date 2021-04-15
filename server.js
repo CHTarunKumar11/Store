@@ -9,11 +9,7 @@ app.use(exp.json());
 
 require("dotenv").config();
 
-const userApiObj = require("./APIs/userApi");
-const activityApiObj = require("./APIs/activityApi");
 
-app.use("/user",userApiObj);
-app.use("/activity",activityApiObj);
 
 
 const dburl = process.env.dburl;
@@ -23,6 +19,12 @@ const db = mongoose.connection;
 
 db.on("error",()=>console.log("err in db connection"));
 db.once("open",()=>console.log("connected to db"));
+
+const userApiObj = require("./APIs/userApi");
+const activityApiObj = require("./APIs/activityApi");
+
+app.use("/user",userApiObj);
+app.use("/activity",activityApiObj);
 
 app.use((req,res,next)=>{
     res.send({message:`path ${req.url} is invalid`});
@@ -36,3 +38,4 @@ app.use((err,req,res,next)=>{
 
 const port = process.env.port;
 app.listen(port,()=>console.log(`Server started on port ${port}`))
+
