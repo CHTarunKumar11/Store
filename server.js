@@ -9,8 +9,8 @@ app.use(exp.json());
 
 require("dotenv").config();
 
-const userApiObj = require("./API's/userApi");
-const activityApiObj = require("./API's/activityApi");
+const userApiObj = require("./APIs/userApi");
+const activityApiObj = require("./APIs/activityApi");
 
 app.use("/user",userApiObj);
 app.use("/activity",activityApiObj);
