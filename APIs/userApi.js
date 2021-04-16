@@ -17,7 +17,7 @@ userApiObj.post("/loginuser",asynchandler(async(req,res,next)=>{
         status = await bcryptjs.compare(credObj.password,user.password)
         if(status)
         {
-            token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
+            token = await jwt.sign({username:user.username},"abcd",{expiresIn:10000});
             res.send({message:"success",signedToken:token,username:user.username,userid:user.userid});
         }
         else{

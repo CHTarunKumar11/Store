@@ -14,7 +14,7 @@ export class SearchPipe implements PipeTransform {
     }
     else
     {
-      this.array = (data.filter(obj=>obj.title.toUpperCase().indexOf(searchTerm.toUpperCase())!==-1)).concat(data.filter(obj=>obj.activity.toUpperCase().indexOf(searchTerm.toUpperCase())!==-1))
+      this.array = (data.filter(obj=>(obj.title.toUpperCase().indexOf(searchTerm.toUpperCase())!==-1)||obj.activity.toUpperCase().indexOf(searchTerm.toUpperCase())!==-1))
       return this.array;
     }
   }

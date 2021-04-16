@@ -3,7 +3,7 @@
     .sbtn{
         padding: 8px 8px;
         color: white;
-        background-color: rgb(21, 182, 21);
+        background-color: #104C91;
         outline: none;
     }
     .vanish
@@ -19,7 +19,7 @@
 {
     .sbtn{
         color: white;
-        background-color: rgb(21, 182, 21);
+        background-color: #104C91;
         padding: 8px 30px;
         outline: none;
     }
@@ -40,6 +40,7 @@
     padding: 8px;
 }
 
+
 .show1{
     display: flex;
     justify-content: space-evenly;
@@ -49,8 +50,8 @@
 .splbtn
 {
     padding: 10px;
-    background-color: rgb(21, 182, 21);
-    color: White;
+    background-color: #104C91;
+    color: #E7C9A4;
     border-radius: 10px;
     outline: none;
 }
@@ -79,9 +80,17 @@ input{
     float: right;
 }
 
+
+.card
+{
+    font-family: 'RocknRoll One', sans-serif;
+    color: #ec600f;
+}
+
 .card-footer
 {
     background-color: white;
+    color: #ec600f;
     border: none;
 }
 
@@ -222,14 +231,22 @@ input{
 .remindDisplay
 {
     display: inline-block;
-    border: 1px solid black;
+    border: 2px solid #ec600f;
     border-radius: 50px;
     padding: 5px;
     margin-top: 10px;
-    background-color: rgba(179, 172, 172, 0.212);
+    background-color: transparent;
+    color: #E7C9A4;
+    font-size: 0.7rem;
 }
 
 a
 {
     cursor: pointer;
+}
+.point
+{
+    cursor: pointer;
+    margin:0px 8px;
+    color: #ec600f;
 }

@@ -1,13 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
 
+  remainders = new BehaviorSubject(null);
+  activities;
+
   constructor(private hc:HttpClient) { }
+
+  async setRemainders(username)
+  {
+    await this.getRemainders(username).subscribe(
+      res=>{
+        if(res["message"]=="success")
+        {
+          this.activities = res["activities"];
+          this.remainders.next(this.activities);
+        }
+      }
+    )
+  }
+
+  getRemainderActivities()
+  {
+    return this.remainders.asObservable();
+  }
 
   addActivity(activityObj):Observable<any>
   {
@@ -33,4 +54,5 @@ export class ActivityService {
   {
     return this.hc.get("/activity/getpinnedactivities/"+username);
   }
+
 }

@@ -13,7 +13,7 @@ activityApiObj.post("/addactivity",verifyToken,asynchandler(async(req,res,next)=
 
     newActivity = new Activity({
         username : activityObj.username,
-        userid : activityObj.id,
+        id : activityObj.id,
         title : activityObj.title,
         activity : activityObj.activity,
         time : activityObj.time,

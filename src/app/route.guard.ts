@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RouteGuard implements CanActivate {
 
-  constructor(private toastr: ToastrService){}
+  constructor(private toastr: ToastrService,private rt:Router){}
 
   canActivate(): boolean 
   {
@@ -18,6 +18,7 @@ export class RouteGuard implements CanActivate {
     }
     else{
       this.toastr.warning("Unauthorized access. Login to Continue","Store");
+      this.rt.navigateByUrl("/forms/login");
       return false;
     }
   }

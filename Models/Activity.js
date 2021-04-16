@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ActivitySchema = new mongoose.Schema({
     username : String,
-    userid : String,
+    id : String,
     title : String,
     activity : String,
     time : String,

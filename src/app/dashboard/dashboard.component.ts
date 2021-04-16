@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit {
           this.addactivityObj.activity = "";
           this.addactivityObj.time = "";
           this.addactivityObj.pin = false;
+          this.as.setRemainders(this.username);
           this.getActivities();
           this.getPinnedActivities();
         }
@@ -148,6 +149,8 @@ export class DashboardComponent implements OnInit {
         }
         else{
           this.toastsuccess("Dashboard Page",res["message"]);
+          location.reload();
+          this.as.setRemainders(this.username);
           this.getActivities();
           this.getPinnedActivities();
         }
@@ -176,6 +179,7 @@ export class DashboardComponent implements OnInit {
 
   pinActivity(activity)
   {
+    console.log(activity);
     activity.pin = !activity.pin;
     this.as.updateActivity(activity).subscribe(
       res=>{
@@ -204,13 +208,13 @@ export class DashboardComponent implements OnInit {
     this.flag = true;
   }
 
-  setReminder()
+  async setReminder()
   {
     if(!this.flag)
     {
-      
       this.date = new Date(this.editactivityObj.time);
-      this.save();
+      await this.save();
+      this.as.setRemainders(this.username);
     }
     else
     {
@@ -220,11 +224,11 @@ export class DashboardComponent implements OnInit {
     this.editactivityObj.time="";
   }
 
-  deleteReminder(activity)
+  async deleteReminder(activity)
   {
     activity.time = "";
-    this.as.updateActivity(activity).subscribe(
-      res=>{
+    await this.as.updateActivity(activity).subscribe(
+       res=>{
         if(res["message"] == ("Session expired. Please login again" || "Unauthorized access. Login to continue"))
         {
           this.toastwarning("Dashboard Page",res["message"]);
@@ -234,6 +238,8 @@ export class DashboardComponent implements OnInit {
           this.toastsuccess("Dashboard Page",res["message"]);
           this.getActivities();
           this.getPinnedActivities();
+          location.reload();
+          this.as.setRemainders(this.username);
         }
       }
     )
